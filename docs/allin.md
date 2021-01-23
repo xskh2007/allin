@@ -166,3 +166,127 @@ postman测试
 http://127.0.0.1:8000/api/v1.0.0/user/login
 
 ![GitHub](https://github.com/xskh2007/allin/blob/main/docs/imgs/clipboar10d.png?raw=true)
+
+http://127.0.0.1:8000/api/v1.0.0/user/userinfo
+![GitHub](https://github.com/xskh2007/allin/blob/main/docs/imgs/clipboard11.png?raw=true)
+
+
+## 登录注销
+### 对于已经登录的用户实现登出功能, 主要的是在于登录的一种身份判断, 那等同于一个唯一字段能实现判断登录用户登出后变化, 并且重新生成这个唯一字段。  
+我们在 User 类中加入这样一条字段配置：  
+
+    from uuid import uuid4  
+
+    user_secret = models.UUIDField(default=uuid4())
+
+### 注意 user_secret 是 User 类的一个属性, 你可能会想那我是不是要重新实现哟用户登录的逻辑呢？ 答案是不需要的, 因为我们创建的字段, 我们用函数路径的方式指定原先的函数, 我们将采用重写原本的判断函数即可实现：  
+在项目根目录下的 applications/User/views.py 中创建函数, 函数位置可自行确定, 你也可以创建一个 .py 文件：
+
+    #!/usr/bin/env python
+    # _*_ Coding: UTF-8 _*_
+
+
+    def get_user_secret(user):
+        return user.user_secret
+
+### 主要的内容是在 Medusa/settings.py 中配置函数路径：
+    JWT_AUTH = {
+        'JWT_GET_USER_SECRET_KEY': 'applications.User.views.get_user_secret'
+    }
+
+
+### 因为我们修改了模型类, 所以我们需要对数据库进行再次迁移：
+    python3 manage.py makemigrations
+    python3 manage.py migrate
+
+
+### 在 applications/User/userauth.py 中创建登出视图：
+    import uuid
+    
+    from rest_framework import status, views
+    from rest_framework.response import Response
+    
+    
+    class UserLogoutAPIView(views.APIView):
+        def get(self, request, *args, **kwargs):
+            user = request.user
+            user.user_secret = uuid.uuid4()
+            user.save()
+            return Response({'detail': 'login out.', 'status': status.HTTP_200_OK}, status=status.HTTP_200_OK)
+
+
+### 在路由模块 Medusa/urls.py 中注册：
+    urlpatterns = [
+        ... ,
+        path('api/v1.0.0/user/logout', userauth.UserLogoutAPIView.as_view()),
+    ]
+
+
+测试一下：
+NotImplementedError: Django doesn't provide a DB representation for AnonymousUser.
+
+
+What? 报错了, 因为我们访问 API 的时候没有使用认证信息, 所以访问的 User 对象是一个匿名用户对象, 所以我们需要对这个接口采取认证：
+from rest_framework.permissions import IsAuthenticated
+
+
+    class UserLogoutAPIView(views.APIView):
+        permission_classes = [IsAuthenticated]
+        
+        def get(self, request, *args, **kwargs):
+            ...
+
+
+添加认证参数 permission_classes 表示需要 IsAuthenticated 已认证的对象才可以访问, 再次尝试接口会收到以下 json 提示：
+
+    {
+        "detail": "Authentication credentials were not provided."
+    }
+
+
+认证失败？ 我们在 Medusa/settings.py 中添加以下配置信息：  
+
+    import datetime
+    
+    
+    JWT_AUTH = {
+        # 之前配置的用户依据判断函数路由
+        'JWT_GET_USER_SECRET_KEY': 'applications.User.views.get_user_secret',
+        
+        # 用户认证数据的过期时间
+        'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1)
+    }
+    REST_FRAMEWORK = {
+        # 用户认证类
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            # 优先使用 JWT 的方式认证用户
+            'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
+            'rest_framework.authentication.BasicAuthentication',
+        ),
+    }
+
+
+![GitHub](https://raw.githubusercontent.com/xskh2007/allin/main/docs/imgs/12.webp)
+
+
+    {
+        "detail": "login out.",
+        "status": 200
+    }
+
+
+## 创建用户
+
+在创建用户的时候我们不会使用命令行来创建用户的, 使用模型类的时候创建用户一般会这样来实现, 当然了, 这儿我们省略了一些操作, 仅仅介绍创建用户的快捷方式：
+    
+    from apps.User.models import User
+
+
+    User.objects.create_user(username=username, email=email, password=password, **extra_fields)
+    User.objects.create_superuser(username=username, email=email, password=password, **extra_fields)
+
+后面携带的 **extra_fields 可以让你携带更多的 Models 指定的字段, 如果你需要的话。
+
+
+
