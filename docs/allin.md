@@ -10,3 +10,4 @@ https://juejin.cn/post/6844904190133665806#heading-6
 - 开发语言：Python  
 
 ## 1、用Pycharm新建一个项目，用独立venv环境。
+![GitHub](https://github.com/xskh2007/allin/blob/main/docs/imgs/clipboard.png?raw=true)
