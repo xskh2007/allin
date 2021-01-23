@@ -12,7 +12,8 @@ npm run dev
 - 2. 在src/views/demo下创建index.vue。
 - 3. 在src/router/index.js下创建对应的访问路由。
     
-    src/views/demo/index.vue的内容如下：
+    src/views/demo/index.vue的内容如下：    
+    
     
     
     <!-- HTML -->
