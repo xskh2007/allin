@@ -107,12 +107,16 @@ https://juejin.cn/post/6844904190133665806#heading-6
     pip install djangorestframework-jwt
     pip install djangorestframework
 
-### 在准备好基本环境后我们进行登录接口的开发工作, 登录的接口主要是对用户进行验证以及口令的返回, 使用 JWT 验证的时候先安装导入需要的包应用 rest_framework, 添加 Medusa/settings.py 中应用注册参数 INSTALLED_APPS：
+
+ 在准备好基本环境后我们进行登录接口的开发工作, 登录的接口主要是对用户进行验证以及口令的返回, 使用 JWT 验证的时候先安装导入需要的包应用 rest_framework, 添加 Medusa/settings.py 中应用注册参数 INSTALLED_APPS：
+
     INSTALLED_APPS = [
         ...,
         'rest_framework',
     ]
-### 在 apps/User/ 下创建用户认证的视图文件 userauth.py 并撰写用户登录认证视图类：
+
+在 apps/User/ 下创建用户认证的视图文件 userauth.py 并撰写用户登录认证视图类：
+
     #!/usr/bin/env python
     # _*_ Coding: UTF-8 _*_
     from rest_framework_jwt.serializers import JSONWebTokenSerializer
@@ -121,7 +125,9 @@ https://juejin.cn/post/6844904190133665806#heading-6
     
     class UserLoginAPIView(JSONWebTokenAPIView):
         serializer_class = JSONWebTokenSerializer
-### 简简单单的几行代码就实现了一个用户登录的接口, 你现在就需要在你的路由管理器里面注册这个登录的 API 试图即可, 在 allin/urls.py 中 urlpatterns 参数中注册路由：
+
+简简单单的几行代码就实现了一个用户登录的接口, 你现在就需要在你的路由管理器里面注册这个登录的 API 试图即可, 在 allin/urls.py 中 urlpatterns 参数中注册路由：
+
     urlpatterns = [
         path('api/v1.0.0/user/login', userauth.UserLoginAPIView.as_view())
     ]
@@ -132,7 +138,9 @@ https://juejin.cn/post/6844904190133665806#heading-6
     python3 manage.py createsuperuser
 
 ### 用户信息接口  
-## 在 apps/User/ 下创建用户认证的视图文件 userauth.py 并撰写用户登录认证视图类：
+
+ 在 apps/User/ 下创建用户认证的视图文件 userauth.py 并撰写用户登录认证视图类：
+ 
     class UserInfo(APIView):
         def get(self, request, *args, **kwargs):
             res = {
@@ -172,14 +180,17 @@ http://127.0.0.1:8000/api/v1.0.0/user/userinfo
 
 
 ## 登录注销
-### 对于已经登录的用户实现登出功能, 主要的是在于登录的一种身份判断, 那等同于一个唯一字段能实现判断登录用户登出后变化, 并且重新生成这个唯一字段。  
+
+对于已经登录的用户实现登出功能, 主要的是在于登录的一种身份判断, 那等同于一个唯一字段能实现判断登录用户登出后变化, 并且重新生成这个唯一字段。  
 我们在 User 类中加入这样一条字段配置：  
 
     from uuid import uuid4  
 
     user_secret = models.UUIDField(default=uuid4())
 
-### 注意 user_secret 是 User 类的一个属性, 你可能会想那我是不是要重新实现哟用户登录的逻辑呢？ 答案是不需要的, 因为我们创建的字段, 我们用函数路径的方式指定原先的函数, 我们将采用重写原本的判断函数即可实现：  
+注意 user_secret 是 User 类的一个属性, 你可能会想那我是不是要重新实现哟用户登录的逻辑呢？ 
+答案是不需要的, 因为我们创建的字段, 我们用函数路径的方式指定原先的函数, 我们将采用重写原本的判断函数即可实现：     
+
 在项目根目录下的 applications/User/views.py 中创建函数, 函数位置可自行确定, 你也可以创建一个 .py 文件：
 
     #!/usr/bin/env python
