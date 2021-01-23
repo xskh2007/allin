@@ -161,7 +161,7 @@ https://juejin.cn/post/6844904190133665806#heading-6
     
             return JsonResponse(res)
 
-## 在 allin/urls.py 中 urlpatterns 参数中注册路由：
+在 allin/urls.py 中 urlpatterns 参数中注册路由：
 
     from apps.User import userauth #引入userauth 
     urlpatterns = [
@@ -200,18 +200,21 @@ http://127.0.0.1:8000/api/v1.0.0/user/userinfo
     def get_user_secret(user):
         return user.user_secret
 
-### 主要的内容是在 Medusa/settings.py 中配置函数路径：
+主要的内容是在 Medusa/settings.py 中配置函数路径：
+
     JWT_AUTH = {
         'JWT_GET_USER_SECRET_KEY': 'applications.User.views.get_user_secret'
     }
 
 
-### 因为我们修改了模型类, 所以我们需要对数据库进行再次迁移：
+ 因为我们修改了模型类, 所以我们需要对数据库进行再次迁移：
+ 
     python3 manage.py makemigrations
     python3 manage.py migrate
 
 
-### 在 applications/User/userauth.py 中创建登出视图：
+在 applications/User/userauth.py 中创建登出视图：
+
     import uuid
     
     from rest_framework import status, views
@@ -226,7 +229,8 @@ http://127.0.0.1:8000/api/v1.0.0/user/userinfo
             return Response({'detail': 'login out.', 'status': status.HTTP_200_OK}, status=status.HTTP_200_OK)
 
 
-### 在路由模块 Medusa/urls.py 中注册：
+在路由模块 Medusa/urls.py 中注册：
+
     urlpatterns = [
         ... ,
         path('api/v1.0.0/user/logout', userauth.UserLogoutAPIView.as_view()),
