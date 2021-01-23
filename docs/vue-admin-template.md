@@ -15,8 +15,7 @@ npm run dev
     src/views/demo/index.vue的内容如下：    
     
     
-    
-    <!-- HTML -->
+```    <!-- HTML -->
     <template>
       <div>
         <h1>Index</h1>
@@ -41,6 +40,8 @@ npm run dev
     <style scoped>
      
     </style>
+```    
+
     
  在src/router/index.js里面添加新页面对应的访问路由，添加注释的都是需要我们根据场景进行调整的：
  
