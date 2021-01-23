@@ -4,3 +4,6 @@
 pip install mysqlclient
 pip install djangorestframework-jwt
 pip install djangorestframework
+git add .
+git commit -m "hi"
+git push -u origin main
