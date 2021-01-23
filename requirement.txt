@@ -1,0 +1,16 @@
+mysqlclient==2.0.3
+djangorestframework-jwt==1.11.0
+djangorestframework==3.12.2
+Django==3.1.5
+
+#asgiref                 3.3.1
+#Django                  3.1.5
+#django-restframework    0.0.1
+#djangorestframework     3.12.2
+#djangorestframework-jwt 1.11.0
+#mysqlclient             2.0.3
+#pip                     20.3.3
+#PyJWT                   1.7.1
+#pytz                    2020.5
+#setuptools              51.3.3
+#sqlparse                0.4.1
