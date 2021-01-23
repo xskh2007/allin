@@ -9,5 +9,28 @@ https://juejin.cn/post/6844904190133665806#heading-6
 - 开发框架：Django  
 - 开发语言：Python  
 
-## 1、用Pycharm新建一个项目，用独立venv环境。
-![GitHub](https://github.com/xskh2007/allin/blob/main/docs/imgs/clipboard.png?raw=true)
+## 1.用Pycharm新建一个项目，用独立venv环境。
+![GitHub](https://github.com/xskh2007/allin/blob/main/docs/imgs/clipboard.png?raw=true)  
+![GitHub](https://github.com/xskh2007/allin/blob/main/docs/imgs/clipboard2.png?raw=true)  
+## 2.新建一个app
+### 在 allin根目录下创建应用总模块 apps：  
+    cd /opt/allin/  
+    mkdir apps  
+
+### 进入 apps 创建应用模块 User, 这儿采用傻瓜式操作, 创建层级 Django-APP：  
+    cd apps  
+    python3 ../manage.py startapp User  
+如果报错就settings.py文件加入 import os  
+
+
+
+
+
+
+
+
+
+
+
+
+

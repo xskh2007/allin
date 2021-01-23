@@ -1,5 +1,5 @@
 # allin
-[allin项目后端步骤](http://www.cnblogs.com/sxdcgaq8080/p/7894828.html)
+[allin项目后端步骤](https://github.com/xskh2007/allin/blob/main/docs/allin.md)
 
 pip install mysqlclient
 pip install djangorestframework-jwt
