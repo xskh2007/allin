@@ -1,4 +1,4 @@
-#!/opt/allin/venv/bin/python
+#!/Users/wangqiantu/allin/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

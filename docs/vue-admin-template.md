@@ -1,9 +1,10 @@
 ## 安装
+```
 git clone https://github.com/PanJiaChen/vue-admin-template.git
 cd vue-admin-template
 npm install
 npm run dev
-
+```
 ## 第一个页面  
 依赖安装并成功启动后，接下来我们就开始我们的第一个页面的开发了。
 在src/views下面创建我们Vue的展示页面。
