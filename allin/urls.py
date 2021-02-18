@@ -20,5 +20,6 @@ from apps.User import userauth
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1.0.0/user/login', userauth.UserLoginAPIView.as_view()),
-    path('api/v1.0.0/user/userinfo', userauth.UserInfo.as_view())
+    path('api/v1.0.0/user/userinfo', userauth.UserInfo.as_view()),
+    path('article/list', userauth.Mylist.as_view())
 ]

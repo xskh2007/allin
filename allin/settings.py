@@ -129,3 +129,16 @@ STATIC_URL = '/static/'
 
 
 AUTH_USER_MODEL = 'User.User'
+
+
+
+
+#不加配置的话 打印request.user会是一个AnonymousUser对象
+#参考 https://blog.csdn.net/pinkman147834/article/details/90815871
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+ )
+}

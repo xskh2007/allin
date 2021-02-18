@@ -32,6 +32,16 @@ import Layout from '@/layout'
  */
 export const constantRoutes = [
   {
+    path: '/mytable',  // 访问的路由地址
+    component: Layout,
+    children: [{
+      path: 'index', // 访问的路由地址
+      name: 'MytableIndex', // 路由名称
+      component: () => import('@/views/mytable/index'), // 对应的展示页面地址，@表示src
+      meta: { title: 'mytable', icon: 'table' }  // title表示菜单展示的名称，icon表示图标
+    }]
+  },
+  {
   path: '/demo',  // 访问的路由地址
   component: Layout,
   children: [{
