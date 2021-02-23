@@ -2,9 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "../../Desktop/学习/vue-element-admin-4.0.0"
 		}
 	],
 	"settings": {}

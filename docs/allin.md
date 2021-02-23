@@ -3,6 +3,7 @@
 后端：Django-rest-framework JWT  
 参考：https://www.bilibili.com/read/cv6550664/  
 https://juejin.cn/post/6844904190133665806#heading-6  
+https://www.fdevops.com/2020/09/09/vue-django-5171
 我们用 Django 和 rest-framework 开发用户模块, 并使用 JWT(Json Web Token) 进行用户认证,  
 - 开发环境：centos7  
 - 开发 IDE：Pycharm  
