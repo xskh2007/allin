@@ -1,0 +1,21 @@
+{
+    "code": 20000,
+    "data": {
+        "total": 1,
+        "items": [
+            {
+                "id": 1,
+                "password": "pbkdf2_sha256$216000$1byYHuV85RjE$8bvREHw4gb/r3DkRYkPDguTcl5xMb9A5ted2DyaPxHU=",
+                "last_login": null,
+                "is_superuser": true,
+                "username": "admin",
+                "first_name": "",
+                "last_name": "",
+                "email": "261767353@qq.com",
+                "is_staff": true,
+                "is_active": true,
+                "date_joined": "2021-02-05T03:37:36.289Z"
+            }
+        ]
+    }
+}
